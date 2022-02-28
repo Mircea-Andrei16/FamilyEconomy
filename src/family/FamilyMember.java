@@ -1,35 +1,43 @@
 package family;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FamilyMember {
-	
+
 	/**
 	 * expenses for a family member
 	 */
-	private int expenses;
-	
+	private int expenses = 0;
+
 	/**
-	 * income of a family memeber
+	 * income of a family member	
 	 */
-	private int income;
-	
+	private int income = 0;
+
 	/**
 	 * name of the family member
 	 */
 	private String name;
-	
+
+	/**
+	 * family of the family member
+	 */
+	private Family family;
+
 	/**
 	 * Constructor
 	 * @param name of the family member
 	 */
-	public FamilyMember(String name) {
+	public FamilyMember(String name, Family family) {
 		this.name = name;
+		this.family = family;
 	}
 
 	public void displayMember() {
 		System.out.println("person: " + name);
-		
+
 	}
 
 	/**
@@ -78,20 +86,25 @@ public class FamilyMember {
 			System.out.println(buyPrompt);
 			int choice = scanner.nextInt();
 			switch (choice) {
-			case 0: {//back
+			case 0: {
+				//back
 				return;
 			}
 			case 1: {
-			    this.reportMenu();
+				this.reportMenu();
 				break;
 			}
 			case 2: {
-				int income=scanner.nextInt();
+				int income = scanner.nextInt();
+				family.limitIncome(income);
+				family.addSpendingLimit(family.getLimit() + income);
 				setIncome(income);
 				break;
 			}
 			case 3: {
-				int expense=scanner.nextInt();
+				int expense = scanner.nextInt();
+				family.limitExpenses(expense);
+				family.addSpendingLimit(family.getLimit() - expense);
 				setExpenses(expense);
 				break;
 			}
@@ -99,7 +112,7 @@ public class FamilyMember {
 				break;
 			}
 		}
-		
+
 	}
 
 	private void reportMenu() {
@@ -115,26 +128,44 @@ public class FamilyMember {
 				return;
 			}
 			case 1: {
-				// code for View remaining budget
+				System.out.println("Remaining buget: " + family.getLimit());
 				break;
 			}
 
 			case 2: {
-				getIncome();
+				System.out.println("Income:" + getIncome());
 				break;
 			}
 			case 3: {
-				getExpenses();
+				System.out.println("Expenses:" + getExpenses());
 				break;
 			}
-            
+
 			case 4: {
-				// code for Aggregated Statistics
+				System.err.println("Total income: "    + family.getTotalIncome() + "\n"
+						+ "Total expenses: "  + family.getTotalExpense() + "\n" 
+						+ "Highest expense: " + family.getMaximalExpense()+ "\n" 
+						+ "Lowest expense: "  + family.getMinimalExpense());
 				break;
 			}
 			default:
 				break;
 			}
 		}
+	}
+	
+	/**
+	 * Add members in data base
+	 */
+	public void addInDB() {
+		try {
+			FileWriter myWriter = new FileWriter("src/appData.dat");
+			String dataForDB = income + "\n" + expenses + "\n";
+			myWriter.write(dataForDB);
+			myWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

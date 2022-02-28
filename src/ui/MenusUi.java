@@ -122,6 +122,7 @@ public class MenusUi {
 			switch (choice) {
 			case 0: { 
 				//back
+				family.createConfigFile();
 				return;
 			}
 			case 1: {
@@ -136,82 +137,6 @@ public class MenusUi {
 	}
 	
 	/**
-	 * Menu for the members
-	 */
-	public void memberMenu() {
-
-		@SuppressWarnings("resource")
-		//scanner
-		Scanner scanner = new Scanner(System.in);
-		//true variable for the menu
-		boolean isOn = true;
-		String buyPrompt = "0.Back\n1.Reporting\n2.Add income\n3.Add expense";
-		while (isOn) {
-			System.out.println(buyPrompt);
-			int choice = scanner.nextInt();
-			switch (choice) {
-			case 0: {//back
-				return;
-			}
-			case 1: {
-				// code for Reporting
-				break;
-			}
-			case 2: {
-				// code for Add income
-				break;
-			}
-			case 3: {
-				// code for Add expense
-				break;
-			}
-			default:
-				break;
-			}
-		}
-	}
-	
-	/**
-	 * Method for the reports
-	 */
-	public void reportingMenu() {
-
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		boolean isOn = true;
-		String buyPrompt = "0.Back\n1.View remaining budget\n2.View incomes\n3.View expenses\n4.Aggregated Statistics";
-		while (isOn) {
-			System.out.println(buyPrompt);
-			int choice = scanner.nextInt();
-			switch (choice) {
-			case 0: {//back
-				return;
-			}
-			case 1: {
-				// code for View remaining budget
-				break;
-			}
-
-			case 2: {
-				// code for View incomes
-				break;
-			}
-			case 3: {
-				// code for View expenses
-				break;
-			}
-            
-			case 4: {
-				// code for Aggregated Statistics
-				break;
-			}
-			default:
-				break;
-			}
-		}
-	}
-	
-	/**
 	 * Method that creates the config file
 	 */
 	public void createConfigFile() {
@@ -219,6 +144,7 @@ public class MenusUi {
 			//read the config file
 			File configFile = new File("src/config.txt");
 			//create a scanner of it
+			@SuppressWarnings("resource")
 			Scanner fileReader = new Scanner(configFile);
 			//if the config file is active
 			if(fileReader.hasNextLine()) {
