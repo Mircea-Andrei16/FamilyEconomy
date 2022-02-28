@@ -8,22 +8,22 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Family {
-	
+
 	/**
 	 * limit of the spending
 	 */
 	private int limit;
-	
+
 	/**
 	 * Number of members
 	 */
 	private int numberOfMembers;
-	
+
 	/**
 	 * scanner
 	 */
 	private Scanner scanner = new Scanner(System.in);
-	
+
 	/**
 	 * List of family members
 	 */
@@ -33,7 +33,7 @@ public class Family {
 	 * list of members
 	 */
 	private String[] listMember;
-	
+
 	public Family(int limit, String[] member) {
 		this.limit = limit;
 		this.listMember = member;
@@ -46,12 +46,12 @@ public class Family {
 	 */
 	public Family() {
 	}
-	
+
 	/**
 	 * create the member list using the config text
 	 */
 	private void createMembersConfig() {
-		
+
 		for (int i = 0; i < listMember.length; i++) {
 			String name = listMember[i];
 			FamilyMember newFamilyMember = new FamilyMember(name);
@@ -69,22 +69,23 @@ public class Family {
 	 * add a family member
 	 */
 	public void addFamilyMember() {
-		//create a new family member
+		// create a new family member
 		String name = scanner.next();
 		numberOfMembers++;
 		FamilyMember newFamilyMember = new FamilyMember(name);
-		//add the member in the list
+		// add the member in the list
 		familyMembers.add(newFamilyMember);
 	}
 
 	/**
 	 * remove a family member
+	 * 
 	 * @param name
 	 */
 	public void removeFamilyMember(String name) {
 		int number = 0;
 		for (FamilyMember familyMember : familyMembers) {
-			if(name.equals(familyMember.getName())) {
+			if (name.equals(familyMember.getName())) {
 				familyMembers.remove(number);
 				numberOfMembers--;
 				break;
@@ -95,39 +96,40 @@ public class Family {
 
 	/**
 	 * add a spending limit
+	 * 
 	 * @param limit
 	 */
 	public void addSpendingLimit(int limit) {
 		this.limit = limit;
 	}
-	
+
 	/**
 	 * Method that creates the config file
 	 */
 	public void createConfigFile() {
 		try {
-			//file writer
+			// file writer
 			File configFile = new File("src/config.txt");
 			configFile.delete();
-			
+
 			FileWriter configWriter = new FileWriter("src/config.txt");
-			//create a string with the limit and the number of memebers
+			// create a string with the limit and the number of memebers
 			String configString = limit + "\n" + numberOfMembers + " ";
-			
+
 			int number = 0;
-			//add the names of the memebers
+			// add the names of the memebers
 			for (FamilyMember familyMember : familyMembers) {
 				number++;
 				configString = configString + familyMember.getName();
-				if(number <= numberOfMembers - 1) {
+				if (number <= numberOfMembers - 1) {
 					configString = configString + "\n";
 				}
 			}
-			
-			//write the name in the file
+
+			// write the name in the file
 			configWriter.write(configString);
 			configWriter.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -137,7 +139,30 @@ public class Family {
 	 * Select member to add income and expanses
 	 */
 	public void selectMember() {
-		//add code
-	}
+		int number = 0;
+		String configString="";
+		// add the names of the memebers
+		for (FamilyMember familyMember : familyMembers) {
+			number++;
+			configString = configString +number +"." + familyMember.getName();
+			if (number <= numberOfMembers - 1) {
+				configString = configString + "\n";
+			}
+		}
 
+		boolean isOn = true;
+		
+		String buyPrompt = "0.Back\n"+configString;
+		
+		System.out.println(buyPrompt);
+		int choice=scanner.nextInt();
+		int counter=0;
+		for (FamilyMember familyMember : familyMembers) {
+			counter++;
+			if(counter==choice)
+			{
+				familyMember.opMenu();
+			}
+		}
+	}
 }
