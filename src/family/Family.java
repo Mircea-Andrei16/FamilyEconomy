@@ -1,10 +1,10 @@
 package family;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Scanner;
 
 public class Family {
@@ -39,12 +39,15 @@ public class Family {
 		this.listMember = member;
 	}
 
+	/**
+	 * Empty constructor
+	 */
 	public Family() {
 	}
 
 	public void viewFamilyMembers() {
 		for (FamilyMember familyMember : familyMembers) {
-			familyMember.displayMember();
+			System.out.println(familyMember.getName() + "\n");
 		}
 	}
 
@@ -58,6 +61,7 @@ public class Family {
 		FamilyMember newFamilyMember = new FamilyMember(name);
 		//add the member in the list
 		familyMembers.add(newFamilyMember);
+		
 	}
 
 	/**
@@ -89,6 +93,9 @@ public class Family {
 	public void createConfigFile() {
 		try {
 			//file writer
+			File configFile = new File("src/config.txt");
+			configFile.delete();
+			
 			FileWriter configWriter = new FileWriter("src/config.txt");
 			//create a string with the limit and the number of memebers
 			String configString = limit + "\n" + numberOfMembers;
@@ -106,6 +113,10 @@ public class Family {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void selectMember() {
+		//add code
 	}
 
 }

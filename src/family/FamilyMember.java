@@ -8,6 +8,11 @@ public class FamilyMember {
 	private int expenses;
 	
 	/**
+	 * income of a family memeber
+	 */
+	private int income;
+	
+	/**
 	 * name of the family member
 	 */
 	private String name;
@@ -25,8 +30,38 @@ public class FamilyMember {
 		
 	}
 
+	/**
+	 * @return the expenses
+	 */
+	public int getExpenses() {
+		return expenses;
+	}
+
+	/**
+	 * @param expenses the expenses to set
+	 */
+	public void setExpenses(int expenses) {
+		this.expenses = expenses;
+	}
+
+	/**
+	 * @return the income
+	 */
+	public int getIncome() {
+		return income;
+	}
+
+	/**
+	 * @param income the income to set
+	 */
+	public void setIncome(int income) {
+		this.income = income;
+	}
+
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
-
 }

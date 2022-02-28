@@ -32,31 +32,6 @@ public class MenusUi {
 			//display menus
 			switch (choice) {
 			case 1: {
-				try {
-					//read the config file
-					File configFile = new File("src/config.txt");
-					//create a scanner of it
-					Scanner fileReader = new Scanner(configFile);
-					//if the config file is active
-					if(fileReader.hasNextLine()) {
-						//take the income limit
-						int limit = fileReader.nextInt();
-						//take the number of members
-						int numberOfMembers = fileReader.nextInt();
-						String[] member = new String[numberOfMembers]; 
-						//create a list with all the members
-						for (int i = 0; i < numberOfMembers; i++) {
-							String nameMember = fileReader.nextLine();
-							member[i] = nameMember; 
-						}
-						family = new Family(limit, member);
-					}else {
-						family = new Family();
-					}
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-				
 				configMenu();
 				break;
 			}
@@ -150,7 +125,7 @@ public class MenusUi {
 				return;
 			}
 			case 1: {
-				// code for Select family member
+				family.selectMember();
 				break;
 			}
 
@@ -233,6 +208,36 @@ public class MenusUi {
 			default:
 				break;
 			}
+		}
+	}
+	
+	/**
+	 * Method that creates the config file
+	 */
+	public void createConfigFile() {
+		try {
+			//read the config file
+			File configFile = new File("src/config.txt");
+			//create a scanner of it
+			Scanner fileReader = new Scanner(configFile);
+			//if the config file is active
+			if(fileReader.hasNextLine()) {
+				//take the income limit
+				int limit = fileReader.nextInt();
+				//take the number of members
+				int numberOfMembers = fileReader.nextInt();
+				String[] member = new String[numberOfMembers]; 
+				//create a list with all the members
+				for (int i = 0; i < numberOfMembers; i++) {
+					String nameMember = fileReader.nextLine();
+					member[i] = nameMember; 
+				}
+				family = new Family(limit, member);
+			}else {
+				family = new Family();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	
