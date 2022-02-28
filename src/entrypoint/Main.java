@@ -1,12 +1,12 @@
 package entrypoint;
 
 
-import ui.FamilyUI;
+import ui.MenusUi;
 
 public class Main {
 
 	public static void main(String[] args) {
-		FamilyUI ui = new FamilyUI();
+		MenusUi ui = new MenusUi();
         ui.menu();
 	
 	}
