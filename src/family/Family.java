@@ -37,12 +37,26 @@ public class Family {
 	public Family(int limit, String[] member) {
 		this.limit = limit;
 		this.listMember = member;
+		this.numberOfMembers = member.length;
+		createMembersConfig();
 	}
 
 	/**
 	 * Empty constructor
 	 */
 	public Family() {
+	}
+	
+	/**
+	 * create the member list using the config text
+	 */
+	private void createMembersConfig() {
+		
+		for (int i = 0; i < listMember.length; i++) {
+			String name = listMember[i];
+			FamilyMember newFamilyMember = new FamilyMember(name);
+			familyMembers.add(newFamilyMember);
+		}
 	}
 
 	public void viewFamilyMembers() {
@@ -61,7 +75,6 @@ public class Family {
 		FamilyMember newFamilyMember = new FamilyMember(name);
 		//add the member in the list
 		familyMembers.add(newFamilyMember);
-		
 	}
 
 	/**
@@ -73,6 +86,7 @@ public class Family {
 		for (FamilyMember familyMember : familyMembers) {
 			if(name.equals(familyMember.getName())) {
 				familyMembers.remove(number);
+				numberOfMembers--;
 				break;
 			}
 			number++;
@@ -98,12 +112,16 @@ public class Family {
 			
 			FileWriter configWriter = new FileWriter("src/config.txt");
 			//create a string with the limit and the number of memebers
-			String configString = limit + "\n" + numberOfMembers;
+			String configString = limit + "\n" + numberOfMembers + " ";
 			
+			int number = 0;
 			//add the names of the memebers
 			for (FamilyMember familyMember : familyMembers) {
-				configString = configString + "\n";
+				number++;
 				configString = configString + familyMember.getName();
+				if(number <= numberOfMembers - 1) {
+					configString = configString + "\n";
+				}
 			}
 			
 			//write the name in the file
@@ -115,6 +133,9 @@ public class Family {
 		}
 	}
 
+	/**
+	 * Select member to add income and expanses
+	 */
 	public void selectMember() {
 		//add code
 	}

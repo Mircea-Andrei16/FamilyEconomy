@@ -230,7 +230,7 @@ public class MenusUi {
 				//create a list with all the members
 				for (int i = 0; i < numberOfMembers; i++) {
 					String nameMember = fileReader.nextLine();
-					member[i] = nameMember; 
+					member[i] = nameMember.replace(" ", ""); 
 				}
 				family = new Family(limit, member);
 			}else {
